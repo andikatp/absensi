@@ -65,5 +65,15 @@ class AttendanceController extends Controller
 
         return response(['message' => 'Checkout Success', 'attendance' => $attendance], 200);
     }
+    // Check if the user has already checked in today
+    public function isCheckedIn(Request $request)
+    {
+        // find today's attendance record for the user
+        $attendance = Attendance::where('user_id', $request->user()->id)
+            ->where('date', date('Y-m-d'))
+            ->first();
+
+       return response(['checkedIn'=> $attendance ? true : false]);
+    }
 
 }

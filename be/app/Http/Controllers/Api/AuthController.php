@@ -9,35 +9,56 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-   //login
-   public function login(Request $request)
-   {
-       $loginData = $request->validate([
-           'email' => 'required|email',
-           'password' => 'required',
-       ]);
+    //login
+    public function login(Request $request)
+    {
+        $loginData = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
 
-       $user = User::where('email', $loginData['email'])->first();
+        $user = User::where('email', $loginData['email'])->first();
 
-       //check user exist
-       if (!$user) {
-           return response(['message' => 'Invalid credentials'], 401);
-       }
+        //check user exist
+        if (!$user) {
+            return response(['message' => 'Invalid credentials'], 401);
+        }
 
-       //check password
-       if (!Hash::check($loginData['password'], $user->password)) {
-           return response(['message' => 'Invalid credentials'], 401);
-       }
+        //check password
+        if (!Hash::check($loginData['password'], $user->password)) {
+            return response(['message' => 'Invalid credentials'], 401);
+        }
 
-       $token = $user->createToken('auth_token')->plainTextToken;
+        $token = $user->createToken('auth_token')->plainTextToken;
 
-       return response(['user' => $user, 'token' => $token], 200);
-   }
+        return response(['user' => $user, 'token' => $token], 200);
+    }
 
-   // logout
-   public function logout(Request $request)
-   {
-    $request->user()->currentAccessToken()->delete();
-    return response(['message' => 'Successfully logged out'], 200);
-   }
+    // logout
+    public function logout(Request $request)
+    {
+        $request->user()->currentAccessToken()->delete();
+        return response(['message' => 'Successfully logged out'], 200);
+    }
+
+    // Update profile image and face embedding
+    public function updateProfile(Request $request)
+    {
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'face_embedding' => 'required',
+        ]);
+
+        $user = $request->user();
+        $image = $request->file('image');
+        $face_embedding = $request->face_embedding;
+
+        // save the image
+        $image->storeAs('public/images/', $image->hashName());
+        $user->image_url = $image->hashName();
+        $user->face_embedding = $face_embedding;
+        $user->save();
+
+        return response(['message' => 'Profile updated successfully', 'user' => $user,], 200);
+    }
 }

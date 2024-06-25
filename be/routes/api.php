@@ -24,3 +24,10 @@ Route::post('/checkin', [App\Http\Controllers\Api\AttendanceController::class, '
 //checkout
 Route::post('/checkout', [App\Http\Controllers\Api\AttendanceController::class, 'checkout'])->middleware('auth:sanctum');
 
+// Check if the user has already checked in today
+Route::get('/ischeckedin', [App\Http\Controllers\Api\AttendanceController::class, 'isCheckedIn'])->middleware('auth:sanctum');
+
+// update profile
+Route::post('/update-profile', [App\Http\Controllers\Api\AuthController::class, 'updateProfile'])->middleware('auth:sanctum');
+
+
