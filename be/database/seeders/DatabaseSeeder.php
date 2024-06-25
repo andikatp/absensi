@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
             'name' => 'Andika Admin',
             'email' => 'andika@admin.com',
             'password' => Hash::make('12345678'),
+            'role'=> 'admin',
+            'phone' => '082366949979'
         ]);
     }
 }
