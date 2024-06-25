@@ -84,6 +84,32 @@
                                 @enderror
                             </div>
                             <div class="form-group">
+                                <label>Position</label>
+                                <input type="text"
+                                    class="form-control @error('position')
+                                is-invalid
+                            @enderror"
+                                    name="position">
+                                @error('position')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label>Department</label>
+                                <input type="text"
+                                    class="form-control @error('department')
+                                is-invalid
+                            @enderror"
+                                    name="department">
+                                @error('department')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
                                 <label>Phone</label>
                                 <input type="text" class="form-control" name="phone" value="{{ $user->phone }}">
                             </div>

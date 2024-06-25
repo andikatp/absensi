@@ -37,6 +37,8 @@ class UserController extends Controller
             'email' => $request->email,
             'phone' => $request->phone,
             'role' => $request->role,
+            'position' => $request->position,
+            'department' => $request->department,
             'password' =>  bcrypt($request->password),
         ]);
 
@@ -62,6 +64,8 @@ class UserController extends Controller
             'email' => $request->email,
             'phone' => $request->phone,
             'role' => $request->role,
+            'position' => $request->position,
+            'department' => $request->department,
         ]);
 
         // if password filled
