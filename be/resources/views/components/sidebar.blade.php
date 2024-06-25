@@ -16,5 +16,8 @@
             <li class="nav-item dropdown">
                 <a href="{{ route('companies.show', 1) }}" class="nav-link"><i class="far fa-user"></i> <span>Company</span></a>
             </li>
+            <li class="nav-item dropdown">
+                <a href="{{ route('attendances.index', 1) }}" class="nav-link"><i class="far fa-user"></i> <span>Attendance</span></a>
+            </li>
     </aside>
 </div>
