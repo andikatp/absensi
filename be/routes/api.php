@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Laravel\Sanctum\Sanctum;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -9,3 +10,7 @@ Route::get('/user', function (Request $request) {
 
 //login
 Route::post('/login', [App\Http\Controllers\Api\AuthController::class, 'login']);
+
+
+//logout
+Route::post('/logout', [App\Http\Controllers\Api\AuthController::class, 'logout'])->middleware('auth:sanctum');
