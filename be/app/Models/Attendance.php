@@ -10,7 +10,7 @@ class Attendance extends Model
     use HasFactory;
 
     protected $fillable = [
-        'userId',
+        'user_id',
         'date_permission',
         'time_in',
         'time_out',
