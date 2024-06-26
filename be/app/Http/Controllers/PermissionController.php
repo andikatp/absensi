@@ -18,4 +18,27 @@ class PermissionController extends Controller
             })->orderBy('id', 'desc')->paginate(10);
         return view('pages.permission.index', compact('permissions'));
     }
+
+    // show
+    public function show($id)
+    {
+        $permission = Permission::with('user')->find($id);
+        return view('pages.permission.show', compact('permission'));
+    }
+
+    // edit
+    public function edit($id)
+    {
+        $permission = Permission::find($id);
+        return view('pages.permission.edit', compact('permission'));
+    }
+
+    // update
+    public function update(Request $request, $id)
+    {
+        $permission = Permission::find($id);
+        $permission->is_approved = $request->is_approved;
+        $permission->save();
+        return redirect()->route('permissions.index')->with('success', 'Permission updated successfully');
+    }
 }
