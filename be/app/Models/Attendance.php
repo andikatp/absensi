@@ -11,7 +11,7 @@ class Attendance extends Model
 
     protected $fillable = [
         'userId',
-        'date',
+        'date_permission',
         'time_in',
         'time_out',
         'latlon_in',
